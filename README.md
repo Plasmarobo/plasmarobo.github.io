@@ -5,7 +5,9 @@ Now I just need to find footprint files for the coin cell holder and I'll be in 
 
 ## About the Author
 Austen Higgins-Cassidy is a tinkerer, explorer, game-player, and creator.
+
 ![The Author](/img/me.jpg)
+
 When he's not working on an ill-advised elecronics project, he's creating outlines for roleplaying games, playing boardgames with groups, or trying to create a space-based videogame.
 
 He loves solving problems and designing efficient, effective solutions.
