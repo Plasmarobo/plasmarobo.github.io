@@ -7,17 +7,24 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <script rel="javascript" src="js/visual.js"></script>
     <title>Austen Higgins-Cassidy, Computer Engineer</title>
   </head>
   <body>
+    <canvas id="visualizer" class="bkgcanvas" width=100% height=100%></canvas>
     <div class="container-fluid" id="Head">
+      <div class="row minheader"></div>
       <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-1 no-float">
+        <div class="col-md-2 no-float">
           <a href="/index.html"><div class="row">About</div></a>
           <a href="/blog.html"><div class="row">Blog</div></a>
           <a href="/consulting.html"><div class="row">Consulting</div></a>
+          <div class="row headshot">
+            <img src="/img/me.jpg"></img>
+          </div>
         </div>
         <div class="col-md-6 no-float">
           <div>
@@ -26,9 +33,7 @@
             </h2>
             <div class="row">
               <div class="col-md-1"></div>
-            <div class="col-md-8 Headshot">
-              <img src="/img/me.jpg"></img>
-            </div>
+           
             </div>
             <h4>
               BSEE/BSCE, Professional Embedded Systems Engineer
@@ -46,6 +51,9 @@
             <p>
               On the software side of the equation, Austen prefers working with Ruby, Python, and <b>Typescript</b>. While none of these languages is perfect, each brings a great deal to the table in terms of rapid-prototyping and visualization. He's worked with Rails to generate front-end and backend-tools for hobby projects (mostly revolving around Roleplaying games, one of his biggest hobbies that doesn't involve batteries of some kind). His favorite language is still C/C++, but the older languages can be cumbersome and lead to slow development vs the more agile modern languages.
             </p>
+            <p>
+              With a background in computer graphics, Austen is always thinking in terms of compression and efficiency: how can you get more from less? He thrives when working on resource-constrained microcontrollers and microprocessors, designing and implementing compile-time abstraction layers without sacrificing codespace. He's also interested in emulation and simulation of systems: sometimes the best way to solve a problem is to build a model and hammer on it.
+            </p>
             <h2>
               MISC
             </h2>
@@ -56,7 +64,6 @@
         </div>
       </div>
     </div>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>

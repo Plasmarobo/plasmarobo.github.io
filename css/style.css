@@ -1,0 +1,26 @@
+
+body {
+    background-color: #111111;
+    color: whitesmoke;
+    font-family: 'Space Mono', mono space;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.minheader {
+    min-height: 5em;
+}
+
+.headshot {
+    padding: 1em;
+}
+
+.bkgcanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0.05;
+}
