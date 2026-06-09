@@ -13,10 +13,12 @@
     var toolbar = document.getElementById("repo-filters");
     if (!grid) { return; }
 
-    // Repos to hide from the live grid (already featured, or not portfolio-worthy)
+    // Repos to hide from the live grid (already featured, not portfolio-worthy,
+    // or explicitly adult-oriented)
     var HIDE = {
         "plasmarobo.github.io": true,
-        "klipper-backup": true
+        "klipper-backup": true,
+        "buttplug": true
     };
 
     var LANG_COLORS = {
@@ -129,6 +131,11 @@
         var repos = all.filter(function (r) {
             if (!r || r.private || r.archived) { return false; }
             if (HIDE[r.name.toLowerCase()]) { return false; }
+            // Drop forks without our own contributions: a freshly forked repo has
+            // pushed_at (inherited from the parent) at or before created_at (fork time).
+            // Keep forks we've pushed commits to, or that have picked up stars.
+            if (r.fork && new Date(r.pushed_at) <= new Date(r.created_at) &&
+                !(r.stargazers_count > 0)) { return false; }
             if (seen[r.full_name]) { return false; }
             seen[r.full_name] = true;
             return true;
