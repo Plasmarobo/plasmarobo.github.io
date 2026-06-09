@@ -5,7 +5,7 @@ A single-page site showcasing open hardware and firmware projects from the
 [@Plasmarobo](https://github.com/Plasmarobo) and
 [@millibyte-products](https://github.com/millibyte-products) workshops.
 
-Live at **[higgins-cassidy.com](https://higgins-cassidy.com)**.
+Live at **[austenbartels.dev](https://austenbartels.dev)**.
 
 ## Stack
 
