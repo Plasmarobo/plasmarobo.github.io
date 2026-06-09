@@ -1,69 +1,380 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Austen Bartels — embedded systems engineer. Open hardware, motion control, and firmware projects from the Plasmarobo and millibyte-products workshops.">
+    <meta name="author" content="Austen D. Bartels">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" />
-    <script rel="javascript" src="js/visual.js"></script>
-    <title>Austen Higgins-Cassidy, Computer Engineer</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Millibyte Studios — Austen Bartels">
+    <meta property="og:description" content="Embedded systems engineer building open hardware, motion-control electronics, and firmware.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/img/me.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0c'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='%232de2a6'/%3E%3C/svg%3E">
+
+    <title>Millibyte Studios — Austen Bartels · Embedded Systems Engineer</title>
   </head>
   <body>
-    <canvas id="visualizer" class="bkgcanvas" width=100% height=100%></canvas>
-    <div class="container-fluid" id="Head">
-      <div class="row minheader"></div>
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-2 no-float">
-          <a href="/index.html"><div class="row">About</div></a>
-          <a href="/blog.html"><div class="row">Blog</div></a>
-          <a href="/consulting.html"><div class="row">Consulting</div></a>
-          <div class="row headshot">
-            <img src="/img/me.jpg"></img>
-          </div>
-        </div>
-        <div class="col-md-6 no-float">
-          <div>
-            <h2>
-              Austen Higgins-Cassidy
-            </h2>
-            <div class="row">
-              <div class="col-md-1"></div>
-           
-            </div>
-            <h4>
-              BSEE/BSCE, Professional Embedded Systems Engineer
-            </h4>
-          </div>
-          <div class="Content">
-            <h2>
-              ABOUT
-            </h2>
-            <p>
-              Austen Higgins-Cassidy can't keep himself away from electronics and microprocessors.
-              He's been taking apart devices since 1995: he loves designing PCBs to breakout new and interesting parts, and then using those parts to create new and interesting systems.
-              Proficient in <b>C & C++</b> and circuit design, he favors FOSS tools (and is adept at navigating commercial-ready licenses) and software while building personal projects. He occasionally has to bust out the FPGA for some really gnarley <b>Verilog</b> design.
-            </p>
-            <p>
-              On the software side of the equation, Austen prefers working with Ruby, Python, and <b>Typescript</b>. While none of these languages is perfect, each brings a great deal to the table in terms of rapid-prototyping and visualization. He's worked with Rails to generate front-end and backend-tools for hobby projects (mostly revolving around Roleplaying games, one of his biggest hobbies that doesn't involve batteries of some kind). His favorite language is still C/C++, but the older languages can be cumbersome and lead to slow development vs the more agile modern languages.
-            </p>
-            <p>
-              With a background in computer graphics, Austen is always thinking in terms of compression and efficiency: how can you get more from less? He thrives when working on resource-constrained microcontrollers and microprocessors, designing and implementing compile-time abstraction layers without sacrificing codespace. He's also interested in emulation and simulation of systems: sometimes the best way to solve a problem is to build a model and hammer on it.
-            </p>
-            <h2>
-              MISC
-            </h2>
-            <p>
-              While he loves engineering and building electronics, Austen dabbles with 3D printing and physical fabrication. He also engages in more creative endeavors. Writing, reading, board-and-tabletop games, craft beer, skiing, camping, hiking, and data-visualization. He very occasionally finds time to watch a TV show or movie, but would almost always rather be creating than consuming.
-            </p>
-          </div>
-        </div>
+    <canvas id="visualizer" class="bkgcanvas" aria-hidden="true"></canvas>
+
+    <!-- ============================= NAV ============================= -->
+    <header class="nav" id="nav">
+      <div class="nav__inner">
+        <a href="#top" class="brand">
+          <span class="brand__dot"></span>
+          millibyte<span class="brand__sub">/studios</span>
+        </a>
+        <nav>
+          <ul class="nav__links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#featured">Projects</a></li>
+            <li><a href="#repos">Repositories</a></li>
+            <li><a href="#consulting">Consulting</a></li>
+            <li><a href="https://millibyte.store" target="_blank" rel="noopener">Store</a></li>
+            <li><a href="#contact" class="nav__cta">Get in touch</a></li>
+          </ul>
+        </nav>
+        <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
       </div>
-    </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </header>
+
+    <main id="top">
+      <!-- ============================= HERO ============================= -->
+      <section class="section hero container">
+        <div class="hero__grid">
+          <div>
+            <span class="hero__status"><span class="pulse"></span> Open for consulting &amp; collaboration</span>
+            <h1>Austen <span class="accent">Bartels</span></h1>
+            <p class="hero__role">Embedded Systems Engineer · BSEE / BSCE</p>
+            <p class="hero__lead">
+              I design open hardware and the firmware that drives it — motion control,
+              power delivery, and resource-constrained systems where every byte and
+              milliwatt counts. From schematic to silicon to shipping code.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#featured">View projects</a>
+              <a class="btn btn--ghost" href="https://github.com/Plasmarobo" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+                GitHub
+              </a>
+            </div>
+            <div class="hero__meta">
+              <span><strong>120+</strong> public repos</span>
+              <span><strong>10+ yrs</strong> embedded design</span>
+              <span><strong>C · C++ · Rust</strong> primary stacks</span>
+            </div>
+          </div>
+          <figure class="hero__card">
+            <img src="img/me.jpg" alt="Austen Bartels">
+            <figcaption>
+              <span>Austen D. Bartels</span>
+              <span class="tag-dot">● Boston, MA</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============================= ABOUT ============================= -->
+      <section class="section about container" id="about">
+        <p class="eyebrow">About</p>
+        <h2 class="section-title">Hardware-first, software-fluent.</h2>
+        <div class="about__grid">
+          <div>
+            <p>
+              I can't keep myself away from electronics and microprocessors — I've been
+              taking devices apart since the '90s. I love designing PCBs to break out new
+              and interesting parts, then using those parts to build new and interesting
+              systems. I'm fluent in <b>C &amp; C++</b> and circuit design, favor FOSS tools,
+              and occasionally bust out an FPGA for some gnarly <b>Verilog</b>.
+            </p>
+            <p>
+              On the software side I reach for <b>Rust</b>, <b>Python</b>, and
+              <b>TypeScript</b> for rapid prototyping, tooling, and visualization. With a
+              background in computer graphics, I think constantly in terms of compression
+              and efficiency: how do you get more from less? I thrive on resource-constrained
+              microcontrollers, building compile-time abstraction layers without sacrificing
+              codespace — and I love emulating and simulating systems to hammer on a model
+              until the real thing just works.
+            </p>
+            <p>
+              Beyond the bench, I'm into 3D printing and fabrication, tabletop games,
+              writing, skiing, and data visualization — almost always happier creating
+              than consuming.
+            </p>
+          </div>
+          <aside class="about__aside">
+            <h3>// stack</h3>
+            <div class="chips">
+              <span class="chip">C</span>
+              <span class="chip">C++</span>
+              <span class="chip">Rust</span>
+              <span class="chip">Python</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">Verilog</span>
+              <span class="chip">KiCad / PCB</span>
+              <span class="chip">ESP32</span>
+              <span class="chip">STM32</span>
+              <span class="chip">AVR / ATtiny</span>
+              <span class="chip">FreeRTOS</span>
+              <span class="chip">FOC motor control</span>
+              <span class="chip">CAN bus</span>
+              <span class="chip">USB-C PD</span>
+              <span class="chip">I2C / SPI / UART</span>
+              <span class="chip">FPGA</span>
+              <span class="chip">3D printing</span>
+            </div>
+
+            <div class="orgs">
+              <div class="org">
+                <div class="org__head">
+                  <img class="org__avatar" src="https://avatars.githubusercontent.com/u/129248?v=4" alt="" loading="lazy" width="42" height="42">
+                  <div>
+                    <div class="org__name">Plasmarobo</div>
+                    <div class="org__handle">@Plasmarobo</div>
+                  </div>
+                </div>
+                <p>Personal R&amp;D — embedded art, firmware experiments, and open hardware prototypes.</p>
+                <a class="org__link" href="https://github.com/Plasmarobo" target="_blank" rel="noopener">github.com/Plasmarobo →</a>
+              </div>
+              <div class="org">
+                <div class="org__head">
+                  <img class="org__avatar" src="https://avatars.githubusercontent.com/u/193619279?v=4" alt="" loading="lazy" width="42" height="42">
+                  <div>
+                    <div class="org__name">millibyte&#8209;products</div>
+                    <div class="org__handle">@millibyte-products</div>
+                  </div>
+                </div>
+                <p>Productized open hardware — motion control, power delivery, and CAN-bus drivers.</p>
+                <a class="org__link" href="https://github.com/millibyte-products" target="_blank" rel="noopener">github.com/millibyte-products →</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============================= FEATURED ============================= -->
+      <section class="section featured container" id="featured">
+        <p class="eyebrow">Selected work</p>
+        <h2 class="section-title">Featured projects</h2>
+        <p class="section-lead">
+          A curated slice across both workshops — open hardware, custom PCBs, and the
+          firmware that brings them to life.
+        </p>
+
+        <div class="cards">
+          <!-- SSR1 -->
+          <article class="card">
+            <div class="card__media"><img src="assets/CrossedWires.jpg" alt="SSR1 motion-control hardware" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">millibyte-products</div>
+              <h3 class="card__title">SSR1 / SR6 Motion Platform</h3>
+              <p class="card__desc">A multi-axis closed-loop motion-control board with on-board USB-C Power Delivery — a compact, fully open-hardware driver for precise multi-servo motion.</p>
+              <div class="card__tags"><span class="tag">ESP32</span><span class="tag">C++</span><span class="tag">USB-C PD</span><span class="tag">PCB</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#ssr">Details →</a>
+                <a href="https://github.com/millibyte-products/ssr1pcb" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> ssr1pcb</a>
+                <a href="https://github.com/millibyte-products/SR6PDPCB" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> SR6PD</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- candrive -->
+          <article class="card">
+            <div class="card__media"><img src="assets/Devboard.jpg" alt="candrive CAN motor-controller hardware" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">millibyte-products</div>
+              <h3 class="card__title">candrive CAN Bus</h3>
+              <p class="card__desc">A complete CAN motor-control stack: a shared wire protocol with CRC, Rust firmware for the drivers, and an Arduino/PlatformIO host library to command the bus.</p>
+              <div class="card__tags"><span class="tag">Rust</span><span class="tag">C++</span><span class="tag">CAN / TWAI</span><span class="tag">STM32</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#candrive">Details →</a>
+                <a href="https://github.com/millibyte-products/candrive_fw" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> firmware</a>
+                <a href="https://github.com/millibyte-products/candrive_host" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> host lib</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- CANStop -->
+          <article class="card">
+            <div class="card__media"><img src="assets/CANStop.jpg" alt="CANStop CAN endstop + motor controller" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">Plasmarobo · millibyte-products</div>
+              <h3 class="card__title">CANStop</h3>
+              <p class="card__desc">An open-hardware combination endstop and TMC2209 stepper controller on a single CAN node — pairing high-power and twisted-pair data over an XT30 2+2 connector. NEMA17 mountable.</p>
+              <div class="card__tags"><span class="tag">TMC2209</span><span class="tag">CAN</span><span class="tag">KiCad</span><span class="tag">Voron</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#canstop">Details →</a>
+                <a href="https://github.com/Plasmarobo/canstop" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> canstop</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- DataCrypt -->
+          <article class="card">
+            <div class="card__media"><img src="assets/DatacryptMotherboard.jpg" alt="DataCrypt motherboard" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">Plasmarobo</div>
+              <h3 class="card__title">DataCrypt</h3>
+              <p class="card__desc">An electronic interpretation of the word game Decrypto — a study in multi-board embedded design, I2C buses, and squeezing full features onto minimalist microcontrollers.</p>
+              <div class="card__tags"><span class="tag">C</span><span class="tag">ATtiny85</span><span class="tag">I2C</span><span class="tag">Game</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#datacrypt">Details →</a>
+                <a href="https://github.com/Plasmarobo/datacrypt" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> datacrypt</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- HexCell -->
+          <article class="card">
+            <div class="card__media"><img src="assets/StudyInNetworking.jpg" alt="HexCell networked hexagonal boards" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">Plasmarobo</div>
+              <h3 class="card__title">HexCell Mesh</h3>
+              <p class="card__desc">Hexagonal LED boards that connect to each neighbor over UART and pass messages through input/output channels — an embedded art piece and a study in graph-theory networking.</p>
+              <div class="card__tags"><span class="tag">C</span><span class="tag">Rust</span><span class="tag">UART</span><span class="tag">Mesh</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#hexcell">Details →</a>
+                <a href="https://github.com/Plasmarobo/HexCellMkII" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> HexCellMkII</a>
+                <a href="https://github.com/Plasmarobo/hexcell-rust" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> hexcell-rust</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- MB Pixel -->
+          <article class="card">
+            <div class="card__media"><img src="assets/PileOfPix.jpg" alt="MB Pixel self-organizing RGB pixels" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">Plasmarobo</div>
+              <h3 class="card__title">MB Pixel</h3>
+              <p class="card__desc">Standalone MCU "pixels" that connect to their neighbors in a square grid and spontaneously network into a coherent, controllable RGB display — an exercise in distributed communication and art.</p>
+              <div class="card__tags"><span class="tag">AVR</span><span class="tag">RGB</span><span class="tag">Networking</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#pixel">Details →</a>
+                <a href="https://github.com/Plasmarobo" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> @Plasmarobo</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- OpenScoot -->
+          <article class="card">
+            <div class="card__media"><img src="assets/ScooterDriver.jpg" alt="OpenScoot e-scooter controller" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">Plasmarobo</div>
+              <h3 class="card__title">OpenScoot</h3>
+              <p class="card__desc">An open-source, CAN-based motor controller for e-scooters — field-oriented control and a hackable alternative to locked-down commercial firmware.</p>
+              <div class="card__tags"><span class="tag">C++</span><span class="tag">FOC</span><span class="tag">CAN</span><span class="tag">BLDC</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#openscoot">Details →</a>
+                <a href="https://github.com/Plasmarobo/openscoot" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> openscoot</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Disarmed -->
+          <article class="card">
+            <div class="card__media"><img src="assets/Display.jpg" alt="Disarmed modular game hardware" loading="lazy"></div>
+            <div class="card__body">
+              <div class="card__org">Plasmarobo</div>
+              <h3 class="card__title">Disarmed</h3>
+              <p class="card__desc">A modular puzzle game: a set of PCBs talking over SPI and I2C to drive displays and inputs, coordinated by a master board running the rules — race the clock to enter the right answers.</p>
+              <div class="card__tags"><span class="tag">C++</span><span class="tag">SPI</span><span class="tag">I2C</span><span class="tag">ATtiny85</span></div>
+              <div class="card__links">
+                <a class="is-details" href="projects.html#disarmed">Details →</a>
+                <a href="https://github.com/Plasmarobo/Disarmed" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.35c-2.22.48-2.69-1.07-2.69-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.5-1.07-1.77-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg> Disarmed</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px;">
+          <a class="btn btn--primary" href="projects.html">View all projects in detail</a>
+          <a class="btn btn--ghost" href="https://millibyte.store" target="_blank" rel="noopener">Shop finished hardware</a>
+        </div>
+      </section>
+
+      <!-- ============================= LIVE REPOS ============================= -->
+      <section class="section repos container" id="repos">
+        <p class="eyebrow">Straight from GitHub</p>
+        <h2 class="section-title">Live repositories</h2>
+        <p class="section-lead">
+          Pulled live from <a href="https://github.com/Plasmarobo" target="_blank" rel="noopener">@Plasmarobo</a>
+          and <a href="https://github.com/millibyte-products" target="_blank" rel="noopener">@millibyte-products</a>.
+          Filter by language to dig in.
+        </p>
+        <div class="repo-toolbar" id="repo-filters"></div>
+        <div class="repo-grid" id="repo-grid"></div>
+      </section>
+
+      <!-- ============================= CONSULTING ============================= -->
+      <section class="section consulting container" id="consulting">
+        <p class="eyebrow">Work with me</p>
+        <h2 class="section-title">Consulting</h2>
+        <p class="section-lead">
+          Embedded systems is a wide field with an overwhelming amount of choice. I'm
+          available for private consulting — by phone or video call — to help you cut
+          through it. An initial consult ensures my expertise is a good fit before we
+          go further. Sessions are billed hourly.
+        </p>
+        <div class="consulting__grid">
+          <ul class="service-list">
+            <li class="service"><h4>Scoping</h4><p>An initial consult to scope your project, surface risks, and answer questions.</p></li>
+            <li class="service"><h4>Auditing</h4><p>Project guidance, solution proposals, design review, and manufacturing &amp; testing concerns.</p></li>
+            <li class="service"><h4>Design</h4><p>Solution implementation, part selection, PCB layout, and firmware deliverables.</p></li>
+            <li class="service"><h4>Fabrication</h4><p>Designed and executed to spec — board design, firmware, and software, delivered.</p></li>
+          </ul>
+          <div>
+            <h3 style="font-size:1rem;margin-bottom:1rem;">// capabilities</h3>
+            <div class="capabilities">
+              <span class="chip">Code</span><span class="chip">Design</span><span class="chip">Prototype</span>
+              <span class="chip">Firmware</span><span class="chip">Software</span><span class="chip">Testing</span>
+              <span class="chip">Security</span><span class="chip">Updates</span><span class="chip">Deployment</span>
+            </div>
+            <p class="muted" style="margin-top:1.6rem;font-family:var(--mono);font-size:.86rem;">
+              Austen D. Bartels<br>
+              <a href="mailto:consulting@millibyte.io">consulting@millibyte.io</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================= CONTACT ============================= -->
+      <section class="section section--tight container" id="contact">
+        <div class="contact-card">
+          <p class="eyebrow" style="justify-content:center;">Get in touch</p>
+          <h2>Have a board to build or a problem to solve?</h2>
+          <p>Whether it's a one-off consult or a full design-to-fabrication engagement, I'd love to hear what you're working on.</p>
+          <div class="contact-actions">
+            <a class="btn btn--primary" href="mailto:consulting@millibyte.io">Email me</a>
+            <a class="btn btn--ghost" href="https://github.com/Plasmarobo" target="_blank" rel="noopener">@Plasmarobo</a>
+            <a class="btn btn--ghost" href="https://github.com/millibyte-products" target="_blank" rel="noopener">@millibyte-products</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================= FOOTER ============================= -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year">2026</span> Austen D. Bartels · Millibyte Studios</span>
+        <span class="footer__links">
+          <a href="projects.html">Projects</a>
+          <a href="https://millibyte.store" target="_blank" rel="noopener">Store</a>
+          <a href="https://github.com/Plasmarobo" target="_blank" rel="noopener">Plasmarobo</a>
+          <a href="https://github.com/millibyte-products" target="_blank" rel="noopener">millibyte-products</a>
+          <a href="mailto:consulting@millibyte.io">Email</a>
+        </span>
+      </div>
+    </footer>
+
+    <script src="js/visual.js" defer></script>
+    <script src="js/github.js" defer></script>
+    <script src="js/site.js" defer></script>
   </body>
 </html>

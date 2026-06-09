@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Detailed write-ups of Austen Bartels' open hardware and firmware projects — motion control, CAN-bus drivers, networked embedded art, and game hardware.">
+    <meta name="author" content="Austen D. Bartels">
+
+    <meta property="og:title" content="Projects — Millibyte Studios">
+    <meta property="og:description" content="Deep dives into open hardware and firmware projects from the Plasmarobo and millibyte-products workshops.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/assets/CrossedWires.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0c'/%3E%3Crect x='9' y='9' width='14' height='14' rx='3' fill='%232de2a6'/%3E%3C/svg%3E">
+
+    <title>Projects — Millibyte Studios · Austen Bartels</title>
+  </head>
+  <body>
+    <canvas id="visualizer" class="bkgcanvas" aria-hidden="true"></canvas>
+
+    <!-- ============================= NAV ============================= -->
+    <header class="nav" id="nav">
+      <div class="nav__inner">
+        <a href="index.html#top" class="brand">
+          <span class="brand__dot"></span>
+          millibyte<span class="brand__sub">/studios</span>
+        </a>
+        <nav>
+          <ul class="nav__links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="projects.html" class="is-active">Projects</a></li>
+            <li><a href="index.html#repos">Repositories</a></li>
+            <li><a href="index.html#consulting">Consulting</a></li>
+            <li><a href="https://millibyte.store" target="_blank" rel="noopener">Store</a></li>
+            <li><a href="index.html#contact" class="nav__cta">Get in touch</a></li>
+          </ul>
+        </nav>
+        <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============================= PAGE HERO ============================= -->
+      <section class="container page-hero">
+        <div class="breadcrumb">
+          <a href="index.html#top">Home</a>
+          <span>/</span>
+          <span>Projects</span>
+        </div>
+        <p class="eyebrow">Deep dives</p>
+        <h1>Projects in detail</h1>
+        <p>
+          Full write-ups of the hardware and firmware I've designed — the problems
+          they solve, the parts that make them tick, and the lessons learned along the
+          way. Source and schematics live on
+          <a href="https://github.com/Plasmarobo" target="_blank" rel="noopener">@Plasmarobo</a>
+          and <a href="https://github.com/millibyte-products" target="_blank" rel="noopener">@millibyte-products</a>.
+        </p>
+        <nav class="project-toc" aria-label="Jump to project">
+          <a href="#ssr">SSR1 / SR6 Motion</a>
+          <a href="#candrive">candrive CAN Bus</a>
+          <a href="#canstop">CANStop</a>
+          <a href="#openscoot">OpenScoot</a>
+          <a href="#datacrypt">DataCrypt</a>
+          <a href="#hexcell">HexCell Mesh</a>
+          <a href="#pixel">MB Pixel</a>
+          <a href="#disarmed">Disarmed</a>
+        </nav>
+      </section>
+
+      <div class="container">
+
+        <!-- ============================= SSR / SR6 ============================= -->
+        <article class="project" id="ssr">
+          <div class="project__head">
+            <span class="project__index">01</span>
+            <h2 class="project__title">SSR1 / SR6 Motion Platform</h2>
+            <span class="project__org">millibyte-products</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                The SSR and SR6 boards are a family of <b>multi-axis, closed-loop
+                motion-control</b> platforms built around the ESP32. The goal: replace
+                stacks of expensive, low-feature commercial controllers with a single,
+                compact, fully open-hardware board that can drive multiple actuators with
+                precise position feedback.
+              </p>
+              <p>
+                The SR6PD variant adds on-board <b>USB-C Power Delivery</b>, negotiating
+                higher voltages directly from a PD source so the board can run high-power
+                motion without a separate brick or bench supply. The result is a clean,
+                cable-light setup that's easy to integrate into a larger machine.
+              </p>
+              <h4>Why it exists</h4>
+              <p>
+                Off-the-shelf multi-servo controllers tend to be costly, closed, and
+                feature-poor. By publishing the schematics, BOM, and firmware, anyone can
+                fabricate, modify, and extend the hardware — and the ESP32 brings Wi-Fi,
+                Bluetooth, and plenty of headroom for control loops and networking.
+              </p>
+              <h4>Engineering highlights</h4>
+              <p>
+                Tight integration of power delivery, motor drive, and feedback on a small
+                board means careful attention to power-plane layout, thermals, and load
+                testing — validated on the bench before firmware ever ran.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">MCU</span><span class="v">ESP32</span></li>
+                <li><span class="k">Power</span><span class="v">USB-C PD</span></li>
+                <li><span class="k">Control</span><span class="v">Closed-loop</span></li>
+                <li><span class="k">Firmware</span><span class="v">C++ / Arduino</span></li>
+                <li><span class="k">License</span><span class="v">MIT</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">ESP32</span><span class="tag">C++</span>
+                <span class="tag">USB-C PD</span><span class="tag">KiCad</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/millibyte-products/ssr1pcb" target="_blank" rel="noopener">ssr1pcb repo</a>
+              <a class="btn btn--ghost" href="https://github.com/millibyte-products/SR6PDPCB" target="_blank" rel="noopener">SR6PD repo</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/CrossedWires.jpg"><img src="assets/CrossedWires.jpg" alt="SSR motion board wiring" loading="lazy"></a>
+            <a href="assets/USBLoadTesting.jpg"><img src="assets/USBLoadTesting.jpg" alt="USB-C PD load testing" loading="lazy"></a>
+            <a href="assets/HILTest.jpg"><img src="assets/HILTest.jpg" alt="Hardware-in-the-loop test" loading="lazy"></a>
+            <a href="assets/MixedMedia.jpg"><img src="assets/MixedMedia.jpg" alt="Bench prototype" loading="lazy"></a>
+          </div>
+        </article>
+
+        <!-- ============================= CANDRIVE ============================= -->
+        <article class="project" id="candrive">
+          <div class="project__head">
+            <span class="project__index">02</span>
+            <h2 class="project__title">candrive CAN Bus</h2>
+            <span class="project__org">millibyte-products</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                candrive is a complete <b>CAN motor-control stack</b> split into three
+                clean layers: a shared wire protocol, the driver firmware, and a host
+                library. Keeping them separate means the protocol can evolve once and both
+                ends stay in sync.
+              </p>
+              <h4>candrive_protocol</h4>
+              <p>
+                The wire protocol plus CRC, written in C and shared by both the firmware
+                and the host. A single source of truth for message framing and integrity
+                checking across the bus.
+              </p>
+              <h4>candrive_fw</h4>
+              <p>
+                The driver firmware, written in <b>Rust</b> for memory safety on the metal.
+                It speaks the candrive protocol over CAN and runs the actual motor-control
+                loop.
+              </p>
+              <h4>candrive_host</h4>
+              <p>
+                An Arduino / PlatformIO host library that commands the bus, with pluggable
+                backends — ESP32 TWAI, STM32 bxCAN, or a generic transport — so the same
+                host code runs across very different microcontrollers.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">Bus</span><span class="v">CAN</span></li>
+                <li><span class="k">Firmware</span><span class="v">Rust</span></li>
+                <li><span class="k">Host</span><span class="v">C++ / PlatformIO</span></li>
+                <li><span class="k">Backends</span><span class="v">TWAI · bxCAN</span></li>
+                <li><span class="k">Integrity</span><span class="v">CRC framing</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">Rust</span><span class="tag">C++</span>
+                <span class="tag">CAN</span><span class="tag">STM32</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/millibyte-products/candrive_fw" target="_blank" rel="noopener">firmware</a>
+              <a class="btn btn--ghost" href="https://github.com/millibyte-products/candrive_host" target="_blank" rel="noopener">host library</a>
+              <a class="btn btn--ghost" href="https://github.com/millibyte-products/candrive_protocol" target="_blank" rel="noopener">protocol</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/Devboard.jpg"><img src="assets/Devboard.jpg" alt="candrive dev board" loading="lazy"></a>
+            <a href="assets/ADCDriver.jpg"><img src="assets/ADCDriver.jpg" alt="ADC driver board" loading="lazy"></a>
+            <a href="assets/EffectsDriverLTE.jpg"><img src="assets/EffectsDriverLTE.jpg" alt="Driver board" loading="lazy"></a>
+            <a href="assets/Programming.jpg"><img src="assets/Programming.jpg" alt="Programming the firmware" loading="lazy"></a>
+          </div>
+        </article>
+
+        <!-- ============================= CANSTOP ============================= -->
+        <article class="project" id="canstop">
+          <div class="project__head">
+            <span class="project__index">03</span>
+            <h2 class="project__title">CANStop</h2>
+            <span class="project__org">Plasmarobo · millibyte-products</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                CANStop is an open-hardware <b>combination endstop and stepper-motor
+                controller</b> on a single CAN node, with NEMA17 mounting. An embedded
+                TMC2209 drives the motor; a second hardware variant is designed to be
+                compatible with an external TMC2209 board, since many makers in the Voron
+                community already have one on hand.
+              </p>
+              <h4>The connector trick</h4>
+              <p>
+                CANStop uses an <b>XT30 2+2</b> connector — pairing high-power cabling
+                alongside a twisted pair for CAN data in one rugged plug. It's an elegant
+                way to carry both power and a clean differential signal to a moving toolhead
+                without a cable bundle.
+              </p>
+              <h4>Why CAN</h4>
+              <p>
+                Putting the endstop and motor controller on the CAN bus collapses wiring
+                and lets the toolhead talk to the rest of the machine over a single,
+                noise-resistant differential pair — a natural fit for modern CoreXY
+                printers.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">Driver</span><span class="v">TMC2209</span></li>
+                <li><span class="k">Bus</span><span class="v">CAN</span></li>
+                <li><span class="k">Connector</span><span class="v">XT30 2+2</span></li>
+                <li><span class="k">Mounting</span><span class="v">NEMA17</span></li>
+                <li><span class="k">License</span><span class="v">MIT</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">TMC2209</span><span class="tag">CAN</span>
+                <span class="tag">KiCad</span><span class="tag">Voron</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/Plasmarobo/canstop" target="_blank" rel="noopener">canstop repo</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/CANStop.jpg"><img src="assets/CANStop.jpg" alt="CANStop board" loading="lazy"></a>
+            <a href="assets/SwitchDriver.jpg"><img src="assets/SwitchDriver.jpg" alt="Switch driver" loading="lazy"></a>
+            <a href="assets/SwitchesPrototype.jpg"><img src="assets/SwitchesPrototype.jpg" alt="Switches prototype" loading="lazy"></a>
+          </div>
+        </article>
+
+        <!-- ============================= OPENSCOOT ============================= -->
+        <article class="project" id="openscoot">
+          <div class="project__head">
+            <span class="project__index">04</span>
+            <h2 class="project__title">OpenScoot</h2>
+            <span class="project__org">Plasmarobo</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                OpenScoot is an <b>open-source, CAN-based motor controller for
+                e-scooters</b> — a hackable alternative to the locked-down firmware that
+                ships on commercial machines. It uses field-oriented control (FOC) to drive
+                brushless hub motors smoothly and efficiently.
+              </p>
+              <h4>Open by design</h4>
+              <p>
+                Commercial scooter controllers are sealed black boxes. OpenScoot puts the
+                control loop, the bus, and the tuning back in the owner's hands, so the
+                ride can be repaired, retuned, or extended rather than throttled by a vendor.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">Control</span><span class="v">FOC</span></li>
+                <li><span class="k">Motor</span><span class="v">BLDC hub</span></li>
+                <li><span class="k">Bus</span><span class="v">CAN</span></li>
+                <li><span class="k">Firmware</span><span class="v">C++</span></li>
+                <li><span class="k">License</span><span class="v">MIT</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">C++</span><span class="tag">FOC</span>
+                <span class="tag">CAN</span><span class="tag">BLDC</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/Plasmarobo/openscoot" target="_blank" rel="noopener">openscoot repo</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/ScooterDriver.jpg"><img src="assets/ScooterDriver.jpg" alt="Scooter motor driver" loading="lazy"></a>
+            <a href="assets/FunWithSolar.jpg"><img src="assets/FunWithSolar.jpg" alt="Power experiments" loading="lazy"></a>
+          </div>
+        </article>
+
+        <!-- ============================= DATACRYPT ============================= -->
+        <article class="project" id="datacrypt">
+          <div class="project__head">
+            <span class="project__index">05</span>
+            <h2 class="project__title">DataCrypt</h2>
+            <span class="project__org">Plasmarobo</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                DataCrypt is an <b>electronic interpretation of the word game
+                Decrypto</b> — and a study in multi-board embedded design. A motherboard
+                coordinates a set of player modules, each a small microcontroller talking
+                over I2C.
+              </p>
+              <h4>Minimalist MCUs</h4>
+              <p>
+                Much of the fun was squeezing a full-featured <b>I2C</b> driver and game
+                logic onto minimalist parts like the ATtiny85 — proving you don't need a
+                big chip to build a responsive, multi-node tabletop experience.
+              </p>
+              <h4>From mockup to motherboard</h4>
+              <p>
+                The project moved from cardboard mockups to a Mk1 hardware build to a full
+                custom motherboard, iterating on layout, displays, and input handling at
+                each step.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">MCU</span><span class="v">ATtiny85</span></li>
+                <li><span class="k">Bus</span><span class="v">I2C</span></li>
+                <li><span class="k">Firmware</span><span class="v">C</span></li>
+                <li><span class="k">Type</span><span class="v">Tabletop game</span></li>
+                <li><span class="k">License</span><span class="v">Apache-2.0</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">C</span><span class="tag">ATtiny85</span>
+                <span class="tag">I2C</span><span class="tag">Game</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/Plasmarobo/datacrypt" target="_blank" rel="noopener">datacrypt repo</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/DatacryptMotherboard.jpg"><img src="assets/DatacryptMotherboard.jpg" alt="DataCrypt motherboard" loading="lazy"></a>
+            <a href="assets/DatacryptMockup.jpg"><img src="assets/DatacryptMockup.jpg" alt="DataCrypt mockup" loading="lazy"></a>
+            <a href="assets/DatacryptMk1Hardware.jpg"><img src="assets/DatacryptMk1Hardware.jpg" alt="DataCrypt Mk1 hardware" loading="lazy"></a>
+            <a href="assets/UninitializedMemory.jpg"><img src="assets/UninitializedMemory.jpg" alt="Random access memory" loading="lazy"></a>
+          </div>
+        </article>
+
+        <!-- ============================= HEXCELL ============================= -->
+        <article class="project" id="hexcell">
+          <div class="project__head">
+            <span class="project__index">06</span>
+            <h2 class="project__title">HexCell Mesh</h2>
+            <span class="project__org">Plasmarobo</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                HexCell is a set of <b>hexagonal PCBs</b>, each hosting LEDs and a
+                microcontroller, that connect to their neighbors over UART. Messages pass
+                through input and output channels, so a cluster of tiles becomes a
+                self-organizing network — an embedded art piece and a hands-on study in
+                graph theory.
+              </p>
+              <h4>Two implementations</h4>
+              <p>
+                The original firmware (HexCellMkII) is written in <b>C</b>; a later rewrite,
+                hexcell-rust, explores the same mesh in <b>embedded Rust</b> — a great
+                side-by-side look at building the same networked behavior in two very
+                different languages.
+              </p>
+              <h4>Networking as art</h4>
+              <p>
+                Because each tile only knows its immediate neighbors, interesting global
+                patterns emerge from purely local rules — message routing, propagation, and
+                color all driven by the shape of the connected graph.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">Topology</span><span class="v">Hex mesh</span></li>
+                <li><span class="k">Link</span><span class="v">UART</span></li>
+                <li><span class="k">Firmware</span><span class="v">C · Rust</span></li>
+                <li><span class="k">Output</span><span class="v">RGB LEDs</span></li>
+                <li><span class="k">License</span><span class="v">MIT · Apache-2.0</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">C</span><span class="tag">Rust</span>
+                <span class="tag">UART</span><span class="tag">Mesh</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/Plasmarobo/HexCellMkII" target="_blank" rel="noopener">HexCellMkII</a>
+              <a class="btn btn--ghost" href="https://github.com/Plasmarobo/hexcell-rust" target="_blank" rel="noopener">hexcell-rust</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/StudyInNetworking.jpg"><img src="assets/StudyInNetworking.jpg" alt="HexCell network study" loading="lazy"></a>
+            <a href="assets/StudyInNetworking2.jpg"><img src="assets/StudyInNetworking2.jpg" alt="HexCell network study 2" loading="lazy"></a>
+            <a href="assets/StudyInNetworking3.jpg"><img src="assets/StudyInNetworking3.jpg" alt="HexCell network study 3" loading="lazy"></a>
+            <a href="assets/NetworkRed.jpg"><img src="assets/NetworkRed.jpg" alt="Network lit red" loading="lazy"></a>
+          </div>
+        </article>
+
+        <!-- ============================= MB PIXEL ============================= -->
+        <article class="project" id="pixel">
+          <div class="project__head">
+            <span class="project__index">07</span>
+            <h2 class="project__title">MB Pixel</h2>
+            <span class="project__org">Plasmarobo</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                MB Pixel is both a communication-network experiment and a fun art piece.
+                Each pixel is a <b>standalone microcontroller</b> that connects to its
+                neighbors in a square grid and networks to spontaneously form a coherent,
+                controllable set of RGB pixels.
+              </p>
+              <h4>A cheaper variant</h4>
+              <p>
+                One variant omits the transceiver in favor of a simple <b>diode</b> for
+                communication — a neat cost/complexity trade-off that keeps the per-pixel
+                bill of materials tiny while still passing messages between neighbors.
+              </p>
+              <h4>Emergent displays</h4>
+              <p>
+                Like HexCell, the interesting behavior is emergent: drop a pile of pixels
+                onto a grid and they negotiate into a single addressable surface, no central
+                controller required.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">Unit</span><span class="v">Standalone MCU</span></li>
+                <li><span class="k">Grid</span><span class="v">Square tiling</span></li>
+                <li><span class="k">Comms</span><span class="v">Transceiver / diode</span></li>
+                <li><span class="k">Output</span><span class="v">RGB</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">AVR</span><span class="tag">RGB</span>
+                <span class="tag">Networking</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/Plasmarobo" target="_blank" rel="noopener">@Plasmarobo</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/PileOfPix.jpg"><img src="assets/PileOfPix.jpg" alt="Pile of pixels" loading="lazy"></a>
+            <a href="assets/Pixel.jpg"><img src="assets/Pixel.jpg" alt="Single pixel" loading="lazy"></a>
+            <a href="assets/PixelIdle.jpg"><img src="assets/PixelIdle.jpg" alt="Pixel idle" loading="lazy"></a>
+            <a href="assets/PostageCLAMP.jpg"><img src="assets/PostageCLAMP.jpg" alt="Postage clamp scale" loading="lazy"></a>
+          </div>
+        </article>
+
+        <!-- ============================= DISARMED ============================= -->
+        <article class="project" id="disarmed">
+          <div class="project__head">
+            <span class="project__index">08</span>
+            <h2 class="project__title">Disarmed</h2>
+            <span class="project__org">Plasmarobo</span>
+          </div>
+          <div class="project__layout">
+            <div class="project__body">
+              <p>
+                Disarmed is an electronics and embedded-systems project — an exercise in
+                design, modularity, fabrication, prototyping, and game design. It's a set of
+                PCBs that communicate over <b>SPI and I2C</b> to drive various displays and
+                inputs.
+              </p>
+              <h4>How it plays</h4>
+              <p>
+                A master control board coordinates the modules and runs the game rules. The
+                player races against the clock to derive and enter the correct inputs to
+                "disarm" the device and win.
+              </p>
+              <h4>Minimalist by choice</h4>
+              <p>
+                Many of the embedded boards run on the ATtiny85 — chosen for the twin
+                challenge of fitting a full-featured I2C driver into a tiny MCU, and putting
+                a stash of leftover parts to good use.
+              </p>
+            </div>
+            <aside class="project__aside">
+              <h5>// specs</h5>
+              <ul class="spec-list">
+                <li><span class="k">MCU</span><span class="v">ATtiny85</span></li>
+                <li><span class="k">Buses</span><span class="v">SPI · I2C</span></li>
+                <li><span class="k">Firmware</span><span class="v">C++</span></li>
+                <li><span class="k">Type</span><span class="v">Puzzle game</span></li>
+              </ul>
+              <h5>// stack</h5>
+              <div class="card__tags">
+                <span class="tag">C++</span><span class="tag">SPI</span>
+                <span class="tag">I2C</span><span class="tag">ATtiny85</span>
+              </div>
+              <a class="btn btn--primary" href="https://github.com/Plasmarobo/Disarmed" target="_blank" rel="noopener">Disarmed repo</a>
+            </aside>
+          </div>
+          <div class="gallery">
+            <a href="assets/Display.jpg"><img src="assets/Display.jpg" alt="Disarmed display module" loading="lazy"></a>
+            <a href="assets/SevenSegmentDriver.jpg"><img src="assets/SevenSegmentDriver.jpg" alt="Seven segment driver" loading="lazy"></a>
+            <a href="assets/ShiftRegisterLesson.gif"><img src="assets/ShiftRegisterLesson.gif" alt="Shift register demo" loading="lazy"></a>
+            <a href="assets/ShiftRegisterLesson2.jpg"><img src="assets/ShiftRegisterLesson2.jpg" alt="Shift register board" loading="lazy"></a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- ============================= CTA ============================= -->
+      <section class="section section--tight container">
+        <div class="contact-card">
+          <p class="eyebrow" style="justify-content:center;">More to explore</p>
+          <h2>Want the source, or something built?</h2>
+          <p>Browse every public repo on GitHub, grab finished hardware from the store, or get in touch about a custom build.</p>
+          <div class="contact-actions">
+            <a class="btn btn--primary" href="index.html#repos">Live repositories</a>
+            <a class="btn btn--ghost" href="https://millibyte.store" target="_blank" rel="noopener">Visit the store</a>
+            <a class="btn btn--ghost" href="index.html#contact">Get in touch</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============================= FOOTER ============================= -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year">2026</span> Austen D. Bartels · Millibyte Studios</span>
+        <span class="footer__links">
+          <a href="index.html#featured">Projects</a>
+          <a href="https://millibyte.store" target="_blank" rel="noopener">Store</a>
+          <a href="https://github.com/Plasmarobo" target="_blank" rel="noopener">Plasmarobo</a>
+          <a href="https://github.com/millibyte-products" target="_blank" rel="noopener">millibyte-products</a>
+          <a href="mailto:consulting@millibyte.io">Email</a>
+        </span>
+      </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightbox-close" aria-label="Close">✕</button>
+      <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script src="js/visual.js" defer></script>
+    <script src="js/site.js" defer></script>
+    <script src="js/projects.js" defer></script>
+  </body>
+</html>

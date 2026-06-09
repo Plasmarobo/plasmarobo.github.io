@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+jspm_packages/
+bower_components/
+
+# Lockfiles are optional for a static site; ignore by default
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# npm/yarn/pnpm logs & caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.pnpm-store/
+.eslintcache
+
+# Jekyll / GitHub Pages build artifacts (served straight from source instead)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+.bundle/
+vendor/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Editor & OS cruft
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+*.swp
+*~
