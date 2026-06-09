@@ -293,6 +293,7 @@ body::before {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    object-position: 46% center;
     filter: grayscale(0.15) contrast(1.02);
 }
 .hero__card figcaption {
